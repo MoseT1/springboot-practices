@@ -2,6 +2,7 @@ package com.bitacademy.springboot.helloworld;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 
 /**
@@ -31,7 +32,30 @@ public class HelloWorldApplication {
 		 *   
 		 *
 		 */
-		SpringApplication.run(HelloWorldApplication.class, args);
+		
+		/**
+		 * run이 return하는 애는 container이다.  container는 close해주어야 한다.
+		 * 
+		 * 이게 완벽한 모습이다.
+		 */
+//		ConfigurableApplicationContext ac = null;
+//		
+//		try {
+//			ac = SpringApplication.run(HelloWorldApplication.class, args);
+//
+//		} catch(Throwable ex) {
+//			ex.printStackTrace();
+//		} finally {
+//			if(ac != null) {
+//				ac.close();
+//			}
+//		}
+		
+		
+		// try ~ with ~ resources 구문 (위의 코드와 같은 내용인데 좀 더 간소화). ac가 close됨.
+		try(ConfigurableApplicationContext ac = SpringApplication.run(HelloWorldApplication.class, args)){
+			
+		}
 	}
 
 }
